@@ -5,7 +5,7 @@ The first version of the bikeshare.py was created on 12/04/2020, the first versi
 Bikeshare Project
 
 ### Description
-The project analyses bike sharing data provided by Motivate for the first 6 months in 2017 for Chicago, New York City and Washington. Depending on the user input descriptive statistics are calculated and displayed.
+The project analyses bike sharing data provided by Motivate for the first 6 months in 2017 for the cities of Chicago, New York City and Washington. The program generates descriptive statistics about the trip duration, the most popular stations, etc. The user can prefilter the data by city and month/day via the user input. 
 
 ### Files used
 bikeshare.py: main file
