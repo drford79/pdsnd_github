@@ -18,3 +18,4 @@ For the creation of the bikeshare project I gained valuable insights from:
 URL: https://towardsdatascience.com
 URL: https://stackoverflow.com
 URL: https://www.askpython.com
+Udacity nanodegree program Python Programming for Data Science
