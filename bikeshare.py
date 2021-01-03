@@ -187,24 +187,29 @@ def station_stats(df):
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
+    # defining variables
+    seconds_per_day = 60*60*24
+    seconds_per_hour = 60*60
+    seconds_per_minute = 60
+
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
     # display total travel time
     total_time_travel = df['Trip Duration'].sum()
-    total_days = int(total_time_travel // (60*60*24))
-    total_hours = int((total_time_travel - total_days *(60*60*24)) // (60*60))
-    total_minutes = int((total_time_travel - total_days *(60*60*24) - total_hours * (60*60)) // 60)
-    total_seconds = (total_time_travel - total_days *(60*60*24) - total_hours * (60*60)) % 60
+    total_days = int(total_time_travel // seconds_per_day)
+    total_hours = int((total_time_travel - total_days * seconds_per_day) // seconds_per_hour)
+    total_minutes = int((total_time_travel - total_days * seconds_per_day - total_hours * seconds_per_hour) // seconds_per_minute)
+    total_seconds = (total_time_travel - total_days * seconds_per_day - total_hours * seconds_per_hour) % seconds_per_minute
 
     print("Total time of travel: {} seconds or {} days {} hours {} minutes {} seconds".format(total_time_travel, total_days, total_hours, total_minutes, total_seconds))
 
     # display mean travel time
     mean_time_travel = df['Trip Duration'].mean()
-    mean_days = int(mean_time_travel // (60*60*24))
-    mean_hours = int((mean_time_travel - mean_days *(60*60*24)) // (60*60))
-    mean_minutes = int((mean_time_travel - mean_days *(60*60*24) - mean_hours * (60*60)) // 60)
-    mean_seconds = (mean_time_travel - mean_days *(60*60*24) - mean_hours * (60*60)) % 60
+    mean_days = int(mean_time_travel // seconds_per_day)
+    mean_hours = int((mean_time_travel - mean_days * seconds_per_day) // seconds_per_hour)
+    mean_minutes = int((mean_time_travel - mean_days * seconds_per_day - mean_hours * seconds_per_hour) // seconds_per_minute)
+    mean_seconds = (mean_time_travel - mean_days * seconds_per_day - mean_hours * seconds_per_hour) % seconds_per_minute                  
 
     print("Mean time of travel: {} seconds or {} days {} hours {} minutes {} seconds".format(mean_time_travel, mean_days, mean_hours, mean_minutes, mean_seconds))
 
