@@ -209,7 +209,7 @@ def trip_duration_stats(df):
     mean_days = int(mean_time_travel // seconds_per_day)
     mean_hours = int((mean_time_travel - mean_days * seconds_per_day) // seconds_per_hour)
     mean_minutes = int((mean_time_travel - mean_days * seconds_per_day - mean_hours * seconds_per_hour) // seconds_per_minute)
-    mean_seconds = (mean_time_travel - mean_days * seconds_per_day - mean_hours * seconds_per_hour) % seconds_per_minute                  
+    mean_seconds = (mean_time_travel - mean_days * seconds_per_day - mean_hours * seconds_per_hour) % seconds_per_minute
 
     print("Mean time of travel: {} seconds or {} days {} hours {} minutes {} seconds".format(mean_time_travel, mean_days, mean_hours, mean_minutes, mean_seconds))
 
@@ -251,17 +251,18 @@ def user_stats(df, city):
 
 
 def raw_data(df):
-    """Displays the first 5 lines or the next 5 lines respectively if the user confirms."""
+    """Displays the first 5 lines or the next 5 or n lines respectively if the user confirms."""
 
     # initializing the boundaries for the first and last line and initializing the counter variable
     # the counter variable is used to differentiate between the "first 5 lines " and the "next 5 lines"
-    row_lower = 0
-    row_upper = 5
+    row_lower = -5
+    row_upper = 0
     counter = 0
+    n = 5
 
     while True:
         redo = ''
-        while redo not in ['yes', 'no']:
+        while redo not in ['yes', 'no'] and redo.isdigit() == False:
             if counter == 0:
                 redo = input('Would you like to see the first 5 lines of raw data? Enter yes or no: ').lower()
                 counter += 1
@@ -269,17 +270,19 @@ def raw_data(df):
                 if redo not in ['yes', 'no']:
                     counter = 0
             else:
-                redo = input('Would you like to see the next 5 lines of raw data? Enter yes or no: ').lower()
-        if redo == 'yes':
-
+                redo = input('Would you like to see the next 5 or n lines of raw data? Enter yes, no or a number n: ').lower()
+                if redo.isdigit():
+                    n = int(redo)
+        if redo == 'yes' or redo.isdigit():
             print("\n")
+            diff_rows = row_upper - row_lower
+            row_lower = min(row_lower + diff_rows, len(df))
+            row_upper = min(row_upper + n, len(df))
 
             # Source for the iloc-function: https://www.askpython.com/python/built-in-methods/python-iloc-function#:~:text=%20Python%20iloc%20%28%29%20function%20%E2%80%93%20All%20you,the%20functioning%20of%20Python%20iloc%20%28%29...%20More%20
             print(df.iloc[row_lower:row_upper, :])
-
+            n = 5
             print("\n")
-            row_lower = min(row_lower + 5, len(df))
-            row_upper = min(row_upper + 5, len(df))
 
         else:
             break
